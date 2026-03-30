@@ -1,4 +1,15 @@
-"""
+import whisper
+model = whisper.load_model("base")
+
+async def voice_handler(update, context):
+    file = await update.message.voice.get_file()
+    path = "voice.ogg"
+    await file.download_to_drive(path)
+
+    result = model.transcribe(path)
+    text = result["text"]
+
+    await update.message.reply_text(text)"""
 Telegram Bot для AI агента
 """
 
